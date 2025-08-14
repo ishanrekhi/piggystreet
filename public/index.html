@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PiggyStreet — 7-Day News Stock Game (Kid-Friendly)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <header>
+        <div class="row">
+          <div class="avatar" id="avatar">🐷</div>
+          <div>
+            <h1><span class="spark">✨</span>PiggyStreet<span class="spark">✨</span></h1>
+            <div class="muted">7-Day Stock News Challenge • Learn by doing</div>
+          </div>
+        </div>
+        <div class="coins">
+          <span class="pill">💰 Coins: <span id="coins">0</span></span>
+          <span class="pill">🔍<span id="inv-peek">0</span> ✨<span id="inv-double">0</span> 🛡️<span id="inv-ins">0</span></span>
+          <span class="pill">📅 Day <span id="day">0</span>/7</span>
+        </div>
+      </header>
+
+      <!-- MENU -->
+      <section id="screen-menu" class="center">
+        <p class="bubble">Hi! I’m Penny. Earn coins, upgrade my look, and use boosts to make smarter choices. Ready?</p>
+        <div class="row">
+          <button id="btn-shop">🛍️ Penny Upgrades</button>
+          <button id="btn-tutorial">🎓 Start Tutorial (+50)</button>
+          <button id="btn-start" class="primary">▶️ Start Game</button>
+        </div>
+        <div class="muted">Your coins & unlocks save on this device. No sign-in needed.</div>
+      </section>
+
+      <!-- SHOP -->
+      <section id="screen-shop" class="hidden">
+        <div class="row" style="justify-content:space-between;margin-bottom:8px">
+          <strong>🛍️ Penny Upgrades</strong>
+          <button id="btn-shop-back" class="sm">⬅️ Back</button>
+        </div>
+        <div class="grid">
+          <div class="panel">
+            <div class="row" style="justify-content:space-between"><strong>Customizations (permanent)</strong><span class="muted">Equip after buying</span></div>
+            <div id="shop-custom" class="shop-grid"></div>
+          </div>
+          <div class="panel">
+            <div class="row" style="justify-content:space-between"><strong>Boosts (consumable)</strong><span class="muted">Use during a day</span></div>
+            <div id="shop-boosts" class="shop-grid"></div>
+            <div class="muted" style="margin-top:8px">Boosts you own show above as 🔍 ✨ 🛡️</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TUTORIAL -->
+      <section id="screen-tutorial" class="hidden">
+        <h2>Mini Tutorial</h2>
+        <ol class="list">
+          <li class="panel">
+            <strong>Headlines hint at how a stock might move.</strong>
+            <div class="muted">Good news → better odds of going up. Bad news → better odds of going down. It’s still a guess!</div>
+          </li>
+          <li class="panel">
+            <strong>One choice per day.</strong>
+            <div class="muted">You start with <span class="kbd">$10,000</span>. Pick 1 stock. After the “day,” the price changes based on the headline.</div>
+          </li>
+          <li class="panel">
+            <strong>Spicy vs. safe.</strong>
+            <div class="muted">Big headlines can mean bigger ups *or* downs. Safe headlines move less.</div>
+          </li>
+        </ol>
+        <div class="panel">
+          <div><strong>Quick Check:</strong> “Earnings beat expectations; guidance raised.” What’s likely today?</div>
+          <div class="row" style="margin-top:8px">
+            <button class="choice" data-quiz="good">📈 Likely higher</button>
+            <button class="choice" data-quiz="neutral">➖ Unchanged</button>
+            <button class="choice" data-quiz="bad">📉 Likely lower</button>
+          </div>
+          <div id="quiz-feedback" class="muted" style="margin-top:8px"></div>
+        </div>
+        <div class="footer">
+          <button id="btn-tutorial-skip">Skip</button>
+          <button id="btn-tutorial-finish" class="primary" disabled>Finish (+50)</button>
+        </div>
+      </section>
+
+      <!-- GAME -->
+      <section id="screen-game" class="hidden">
+        <div class="grid">
+          <div class="panel">
+            <div class="row" style="justify-content:space-between">
+              <div><strong>Portfolio</strong></div>
+              <div class="muted">Start: $10,000</div>
+            </div>
+            <div class="progress" style="margin:10px 0"><div id="progress-bar" style="width:0%"></div></div>
+            <div class="row" style="justify-content:space-between">
+              <div>Value: <strong id="value">$10,000</strong></div>
+              <div>Return: <strong id="ret">0.00%</strong></div>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="row" style="justify-content:space-between"><strong>Round Info</strong><span class="pill">📅 Day <span id="day2">1</span> of 7</span></div>
+            <div class="muted" id="round-note">Pick 1 stock for today using the headline hint. You can use boosts on a card before you pick it.</div>
+            <div class="coach" style="margin-top:10px">
+              <div class="who">🐷</div>
+              <div class="bubble" id="coach-bubble">Hi! I’ll brief you before each day and react to your choices.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel" style="margin-top:18px">
+          <div class="stocks" id="stocks"></div>
+        </div>
+
+        <div class="footer">
+          <button id="btn-end-early">🏁 End Game</button>
+        </div>
+      </section>
+
+      <!-- RESULTS -->
+      <section id="screen-results" class="hidden center">
+        <h2>Game Over</h2>
+        <div class="panel">
+          <div class="row" style="justify-content:space-between"><span>Final Value</span><strong id="final-value">$10,000</strong></div>
+          <div class="row" style="justify-content:space-between"><span>Total Return</span><strong id="final-ret">0.00%</strong></div>
+          <div class="row" style="justify-content:space-between"><span>Coins Earned</span><strong id="earned">0</strong></div>
+        </div>
+        <div class="row">
+          <button id="btn-retry">🔁 Play Again</button>
+          <button id="btn-menu" class="primary">🏠 Back to Menu</button>
+        </div>
+        <div class="muted" style="margin-top:8px">Tip: Headlines tilt odds. Try to beat your best!</div>
+      </section>
+    </div>
+  </div>
+
+  <div id="toast" class="toast hidden"></div>
+  <div id="confetti" class="confetti"></div>
+
+  <script type="module" src="../src/main.js"></script>
+</body>
+</html>
