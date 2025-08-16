@@ -34,6 +34,7 @@ export const SENTIMENT = {
   bad:    { mu: -0.013, sigma: 0.027 }
 };
 
+// Penny's daily market briefings
 export const BRIEFINGS = [
   "Tech stocks have been rallying, but a Fed speech later could shake things up—be cautious today.",
   "Energy looks steady; growth names might bounce, but watch for surprises in guidance.",
@@ -43,6 +44,7 @@ export const BRIEFINGS = [
   "Momentum day? Maybe. But momentum cuts both ways—helmet on!",
   "Mixed signals everywhere. Use the clues you have and keep boosts handy."
 ];
+
 
 export const CUSTOMS = [
   {id:'shades', name:'Cool Shades Penny', icon:'😎', price:200, desc:'Stylish & smart.'},
