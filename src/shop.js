@@ -13,7 +13,7 @@ function renderCustoms(){
     const node = document.createElement('div');
     node.className = 'shop-item' + (owned ? ' owned' : '');
     node.innerHTML = `
-      <h4>${item.icon} ${item.name}</h4>
+      <h4>${item.name}</h4>
       <div class="muted">${item.desc}</div>
       <div class="row" style="justify-content:space-between">
         <span class="pill">${owned ? 'Owned' : `💰 ${item.price}`}</span>

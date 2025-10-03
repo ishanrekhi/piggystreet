@@ -4,7 +4,8 @@ const LS = {
   coins: 'ps_coins',
   unlocks: 'ps_unlocks',
   skin: 'ps_skin',
-  boosts: 'ps_boosts'
+  boosts: 'ps_boosts',
+  tutorial: 'ps_tutorial_done'   // NEW: one-time tutorial reward flag
 };
 
 function readJSON(key, fallback){
@@ -19,7 +20,8 @@ export const state = {
   picks: [],
   boosts: readJSON(LS.boosts, {peek:0,double:0,ins:0}),
   unlocks: readJSON(LS.unlocks, {base:true,shades:false,wizard:false,astro:false}),
-  skin: localStorage.getItem(LS.skin) || 'base'
+  skin: localStorage.getItem(LS.skin) || 'base',
+  tutorialDone: localStorage.getItem(LS.tutorial) === '1'  // NEW
 };
 
 export function setCoins(v){
@@ -44,4 +46,11 @@ export function setSkin(s){
   state.skin = s;
   localStorage.setItem(LS.skin, s);
   emit('skin:change', s);
+}
+
+// NEW: mark tutorial reward claimed
+export function markTutorialDone(){
+  state.tutorialDone = true;
+  localStorage.setItem(LS.tutorial, '1');
+  emit('tutorial:done', true);
 }
